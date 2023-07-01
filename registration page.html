@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h2 align="center">Register Now</h2>
+<div class="container">
+    <div class="card">
+        <form>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="form-control" type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input class="form-control" type="email" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input class="form-control" type="password" id="password" name="password">
+            </div>
+            <div class="text-center">
+                <button type="button" id="reg-btn" class="btn btn-primary" onclick="registerUser()">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function registerUser() {
+        let name = document.getElementById('name').value;
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+
+        let user_records = JSON.parse(localStorage.getItem("users")) || [];
+
+        if (user_records.some(v => v.email === email)) {
+            alert("Your email already exists! Please go to the login page.");
+            window.location.href = "login.html";
+        } else {
+            user_records.push({
+                "name": name,
+                "email": email,
+                "password": password
+            });
+            localStorage.setItem("users", JSON.stringify(user_records));
+        }
+    }
+</script>
+</body>
+</html>
